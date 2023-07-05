@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+</head>
+<style>
+    .container{
+        width: 30% !important;
+        padding: 20px 30px !important;
+        border: 2px solid black;
+        border-radius: 10px;
+        margin-top:8%;
+        text-align: center;
+
+    }
+    .navbar-nav{
+        margin-left: 40%;
+    }
+    .active
+    {
+        font-size: large;
+    }
+</style>
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-link active" aria-current="page" href="http://localhost:2000/ins">New Loan</a>
+          <a class="nav-link active" href="http://localhost:2000/display">DebtorDetails</a>
+          <a class="nav-link active" href="http://localhost:2000/delete">Repay</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+      <br><br>
+      <center><h3>Finance Management System</h3>
+        <br><br>
+      <h4>Update Loan</h4> </center>  
+
+<div class="container">
+    <form action="http://localhost:2000/upd" method="post">
+        Mobile Number <br>
+        <input type="text" name="t2" id=""><br><br>  
+        Amount paid <br>
+        <input type="text" name="t3" id=""><br><br>
+        <input type="submit" class="btn-success btn" value="Submit">
+    </form>
+</div>
+</body>
+</html>

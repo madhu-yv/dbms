@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<style>
+    td,table,tr,th{
+        border: 2px solid black;
+    }
+    #pay,#paid{
+        display: none;
+    }
+    .container{
+        width: 30% !important;
+        padding: 20px 30px !important;
+        border: 2px solid black;
+        border-radius: 10px 50px;
+        margin-top:15%;
+
+    }
+    .navbar-nav{
+        margin-left: 40%;
+    }
+    .active
+    {
+        font-size: large;
+    }
+</style>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a class="nav-link active" aria-current="page" href="http://localhost:2000/ins">New Loan</a>
+              <a class="nav-link active" href="http://localhost:2000/delete">DebtorDetails</a>
+              <a class="nav-link active" href="http://localhost:2000/pay">Repay</a>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+
+      <div class="container text-center">
+    <form  method="post"> 
+        Enter your Old Mobile Number: <br>
+        <input type="text" name="t1" id="t1"><br><br>
+        Enter your Old Mobile Number: <br>
+        <input type="text" name="t2" id="t2"><br><br>
+        <input type="button" class="btn-success btn" onclick="sub()" value="Submit" id="t2">
+    </form>
+    <table id="result">
+        
+    </table> 
+    </div>
+</body>
+<script>
+    var c
+     function sub()
+     {
+        var a = document.getElementById("t1").value
+        var b = document.getElementById("t2").value
+        console.log(a)
+        fetch("http://localhost:2000/pay",{
+            method:"post",
+            headers: {
+            'Content-Type': 'application/json'
+            },
+            body:JSON.stringify({
+                t1:a,
+                t2:b
+            })
+        })
+    .then(async(e)=>{
+        var e1=await e.json()
+        if(e1.length!=0)
+            {
+                console.log(e1)
+            let temp = `<tr><th>EB_No</th> <th>Door No</th> <th>Pay Status</th> <th>Units used</th> </tr>`;
+            for(let d of e1)
+            {
+                temp += `<tr>
+                    <td>${d.eb_no} </td>
+                    <td>${d.door_no} </td>
+                    <td>${d.pay_status}</td>   
+                    <td>${d.units}</td>      
+                </tr>`;
+                c=d.pay_status
+            }
+
+            document.getElementById("result").innerHTML = temp;
+            }
+            else{
+                document.getElementById("result").innerHTML = "No record found";
+            }
+            if(c=="no")
+            document.getElementById("pay").style.display="block"
+            else
+            document.getElementById("paid").style.display="block"
+        })
+    }
+
+function pay()
+{
+    var a = document.getElementById("t1").value
+        console.log(a)
+    fetch("http://localhost:2000/pay",{
+            method:"post",
+            headers: {
+            'Content-Type': 'application/json'
+            },
+            body:JSON.stringify({
+                t1:a
+            })
+        })
+        .then(async(e)=>{
+
+            document.getElementById("paid").innerHTML="Successfully Paid"
+        })
+        .catch(()=>{
+            document.getElementById("paid").innerHTML="Cannot pay due server problem"
+        })
+}
+</script>
+</html>

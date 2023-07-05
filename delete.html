@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .container{
+        width: 30% !important;
+        padding: 20px 30px !important;
+        border: 2px solid black;
+        border-radius: 10px 50px;
+        margin-top:15%;
+
+        }   .navbar-nav{
+        margin-left: 40%;
+    }
+    .active
+    {
+        font-size: large;
+    }
+</style>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a class="nav-link active" aria-current="page" href="http://localhost:2000/disp">Display</a>
+              <a class="nav-link active" href="http://localhost:2000/delete">Delete</a>
+              <a class="nav-link active" href="http://localhost:2000/pay">Update</a>
+              <a class="nav-link active" href="http://localhost:2000/insert">Insert</a>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+
+      <div class="container jg">
+    Enter your EB ID to remove your EB service
+    <br><br>
+    <input type="text" id="delete">
+    <a href="http://localhost:2000/update"><input type="button" class="btn-warning btn" value="Edit" ></a>
+    <input type="button" class="btn-success btn" value="Repay" onclick="del()">
+
+    <br><br>
+    <h6 id="del"></h6>
+    </div>
+</body>
+
+<script>
+    function del()
+    {
+        var a = document.getElementById("delete").value
+        fetch("http://localhost:2000/del",{
+            method:"post",
+            headers: {
+            'Content-Type': 'application/json'
+            },
+            body:JSON.stringify({
+                t1:a
+            })
+        })
+        .then(async(e)=>{
+            document.getElementById("del").innerHTML="Successfully Deleted"
+        })
+        .catch(()=>{
+            document.getElementById("del").innerHTML="Cannot delete due to server problem"
+        })
+    }
+
+
+    
+</script>
+</html>
